@@ -1,0 +1,380 @@
+package prj5;
+
+import java.awt.Color;
+import java.text.DecimalFormat;
+import cs2.Button;
+import cs2.Shape;
+import cs2.TextShape;
+import cs2.Window;
+import cs2.WindowSide;
+
+/**
+ * @author Tyler Lefave, Dylan Nguyen, Joel Gujjarlamudi
+ * @version 12/3/2021
+ *
+ */
+public class GUICovidWindow {
+
+    private Calculator calc;
+    private Window window;
+    private Shape shape;
+    private State current;
+
+    public GUICovidWindow(Calculator temp) {
+        calc = temp;
+
+        window = new Window();
+        window.setTitle("Project 5: dylann7, Joelng117, lefave26");
+
+        Button quitButton = new Button("Quit");
+        quitButton.onClick(this, "clickedQuit");
+
+        Button alpha = new Button("Sort By Alpha");
+        alpha.onClick(this, "clickedAlpha");
+
+        Button CFRButton = new Button("Sort By CFR");
+        CFRButton.onClick(this, "clickedCFRButton");
+
+        Button DC = new Button("Represent DC");
+        DC.onClick(this, "clickedDC");
+
+        Button GA = new Button("Represent GA");
+        GA.onClick(this, "clickedGA");
+
+        Button MD = new Button("Represent MD");
+        MD.onClick(this, "clickedMD");
+
+        Button NC = new Button("Represent NC");
+        NC.onClick(this, "clickedNC");
+
+        Button TN = new Button("Represent TN");
+        TN.onClick(this, "clickedTN");
+
+        Button VA = new Button("Represent VA");
+        VA.onClick(this, "clickedVA");
+
+        window.addButton(alpha, WindowSide.NORTH);
+        window.addButton(quitButton, WindowSide.NORTH);
+        window.addButton(CFRButton, WindowSide.NORTH);
+
+        window.addButton(DC, WindowSide.SOUTH);
+        window.addButton(GA, WindowSide.SOUTH);
+        window.addButton(MD, WindowSide.SOUTH);
+        window.addButton(NC, WindowSide.SOUTH);
+        window.addButton(TN, WindowSide.SOUTH);
+        window.addButton(VA, WindowSide.SOUTH);
+
+    }
+
+
+    /**
+     * Quits application
+     * 
+     * @param button
+     *            the button
+     * 
+     */
+    public void clickedQuit(Button button) {
+        System.exit(0);
+    }
+
+
+    /**
+     * Alpha application
+     * 
+     * @param button
+     *            the button
+     */
+    public void clickedAlpha(Button button) {
+
+        if (current != null) {
+
+            window.removeAllShapes();
+
+            addTextShape(title(current.getName()), window.getGraphPanelWidth()
+                / 3, 20);
+
+            DLList<Races> alpha = current.sortByAlpha();
+
+            int size = alpha.size();
+
+            for (int j = 0; j < size; j++) {
+                Races r = alpha.get(j);
+
+                bars(r, j + 1);
+            }
+        }
+
+    }
+
+
+    /**
+     * CFR application
+     * 
+     * @param button
+     *            the button
+     */
+    public void clickedCFRButton(Button button) {
+
+        if (current != null) {
+
+            window.removeAllShapes();
+
+            addTextShape(title(current.getName()), window.getGraphPanelWidth()
+                / 3, 20);
+
+            DLList<Races> cfr = current.sortByCFR();
+
+            int size = cfr.size();
+
+            for (int j = 0; j < size; j++) {
+                Races r = cfr.get(j);
+
+                bars(r, j + 1);
+            }
+
+        }
+
+    }
+
+
+    /**
+     * DC application
+     * 
+     * @param button
+     *            the button
+     */
+    public void clickedDC(Button button) {
+        DLList<State> list = calc.getState();
+        window.removeAllShapes();
+
+        for (int i = 0; i < list.size(); i++) {
+            State temp = list.get(i);
+
+            if (temp.getName().equals("DC")) {
+                current = temp;
+                addTextShape(title(current.getName()), window
+                    .getGraphPanelWidth() / 3, 20);
+
+                int size = current.getRaceList().size();
+
+                for (int j = 0; j < size; j++) {
+                    Races r = current.getRaceList().get(j);
+
+                    bars(r, j + 1);
+                }
+
+            }
+        }
+
+    }
+
+
+    /**
+     * GA application
+     * 
+     * @param button
+     *            the button
+     */
+    public void clickedGA(Button button) {
+        DLList<State> list = calc.getState();
+        window.removeAllShapes();
+
+        for (int i = 0; i < list.size(); i++) {
+            State temp = list.get(i);
+
+            if (temp.getName().equals("GA")) {
+                current = temp;
+                addTextShape(title(current.getName()), window
+                    .getGraphPanelWidth() / 3, 20);
+
+                int size = current.getRaceList().size();
+
+                for (int j = 0; j < size; j++) {
+                    Races r = current.getRaceList().get(j);
+
+                    bars(r, j + 1);
+                }
+
+            }
+
+        }
+    }
+
+
+    /**
+     * MD application
+     * 
+     * @param button
+     *            the button
+     */
+    public void clickedMD(Button button) {
+        DLList<State> list = calc.getState();
+        window.removeAllShapes();
+
+        for (int i = 0; i < list.size(); i++) {
+            State temp = list.get(i);
+
+            if (temp.getName().equals("MD")) {
+                current = temp;
+                addTextShape(title(current.getName()), window
+                    .getGraphPanelWidth() / 3, 20);
+
+                int size = current.getRaceList().size();
+
+                for (int j = 0; j < size; j++) {
+                    Races r = current.getRaceList().get(j);
+
+                    bars(r, j + 1);
+                }
+
+            }
+
+        }
+    }
+
+
+    /**
+     * NC application
+     * 
+     * @param button
+     *            the button
+     */
+    public void clickedNC(Button button) {
+        DLList<State> list = calc.getState();
+        window.removeAllShapes();
+
+        for (int i = 0; i < list.size(); i++) {
+            State temp = list.get(i);
+
+            if (temp.getName().equals("NC")) {
+                current = temp;
+                addTextShape(title(current.getName()), window
+                    .getGraphPanelWidth() / 3, 20);
+
+                int size = current.getRaceList().size();
+
+                for (int j = 0; j < size; j++) {
+                    Races r = current.getRaceList().get(j);
+
+                    bars(r, j + 1);
+                }
+
+            }
+
+        }
+    }
+
+
+    /**
+     * TN application
+     * 
+     * @param button
+     *            the button
+     */
+    public void clickedTN(Button button) {
+        DLList<State> list = calc.getState();
+        window.removeAllShapes();
+
+        for (int i = 0; i < list.size(); i++) {
+            State temp = list.get(i);
+
+            if (temp.getName().equals("TN")) {
+                current = temp;
+                addTextShape(title(current.getName()), window
+                    .getGraphPanelWidth() / 3, 20);
+
+                int size = current.getRaceList().size();
+
+                for (int j = 0; j < size; j++) {
+                    Races r = current.getRaceList().get(j);
+
+                    bars(r, j + 1);
+                }
+
+            }
+
+        }
+    }
+
+
+    /**
+     * VA application
+     * 
+     * @param button
+     *            the button
+     */
+    public void clickedVA(Button button) {
+        DLList<State> list = calc.getState();
+        window.removeAllShapes();
+
+        for (int i = 0; i < list.size(); i++) {
+            State temp = list.get(i);
+
+            if (temp.getName().equals("VA")) {
+                current = temp;
+                addTextShape(title(current.getName()), window
+                    .getGraphPanelWidth() / 3, 20);
+
+                int size = current.getRaceList().size();
+
+                for (int j = 0; j < size; j++) {
+                    Races r = current.getRaceList().get(j);
+
+                    bars(r, j + 1);
+                }
+
+            }
+
+        }
+    }
+
+
+    private void addTextShape(String message, int x, int y) {
+
+        if (message != null) {
+            TextShape shape = new TextShape(x, y, message, Color.BLACK);
+            shape.setBackgroundColor(Color.white);
+            window.addShape(shape);
+        }
+
+    }
+
+
+    private void bars(Races race, int pos) {
+
+        int Height = window.getGraphPanelHeight() - 150;
+        double r = race.getCFR();
+        int heightOfBar = (int)(Height * r / 10);
+
+        if (heightOfBar > 0) {
+            shape = new Shape(window.getWidth() / 6 * (pos), 50 + Height
+                - heightOfBar, 40, heightOfBar, new Color(0, 0, 232));
+            window.addShape(shape);
+
+            addTextShape(race.getName(), window.getWidth() / 6 * (pos), 200);
+
+            String pattern = "#.#";
+            DecimalFormat decimalFormat = new DecimalFormat(pattern);
+
+            String format = decimalFormat.format(race.getCFR());
+            addTextShape(format + "%", window.getWidth() / 6 * (pos), 220);
+        }
+        else {
+            addTextShape(race.getName(), window.getWidth() / 6 * (pos), 200);
+            addTextShape("N/A", window.getWidth() / 6 * (pos), 150);
+        }
+
+    }
+
+
+    private String title(String name) {
+
+        StringBuilder s = new StringBuilder();
+        s.append(name);
+        s.append(" Case Fatality Ratios by Race");
+        return s.toString();
+
+    }
+
+}
