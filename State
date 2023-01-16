@@ -1,0 +1,224 @@
+package prj5;
+
+/**
+ * @author Tyler Lefave, Dylan Nguyen, Joel Gujjarlamudi
+ * @version 12/3/2021
+ */
+public class State {
+
+    private String nameState;
+    private DLList<Integer> cases;
+    private DLList<Integer> deaths;
+    private String[] races;
+    private double[] cfr;
+    private DLList<Races> race;
+
+    /**
+     * Constructor
+     * 
+     * @param n
+     *            name of state
+     * @param c
+     *            cases
+     * @param d
+     *            deaths
+     * @param r
+     *            races
+     */
+
+    public State(String n, DLList<Integer> c, DLList<Integer> d, String[] r) {
+
+        this.nameState = n;
+        this.cases = c;
+        this.deaths = d;
+        this.races = r;
+
+        cfr = calculateCFR();
+
+        race = new DLList<Races>();
+
+        for (int i = 0; i < races.length; i++) {
+            Races temp = new Races(races[i], cases.get(i), cfr[i]);
+
+            race.add(temp);
+        }
+
+    }
+
+
+    /**
+     * Private method that calculates cfr
+     * 
+     * @return cfr the calculated cfr
+     */
+
+    private double[] calculateCFR() {
+        DLList<Integer> c = cases;
+        DLList<Integer> d = deaths;
+
+        double[] arr = new double[d.size()];
+
+        double temp = 0.0;
+
+        for (int i = 0; i < d.size(); i++) {
+            if (c.get(i) == -1 || d.get(i) == -1) {
+                temp = -1;
+            }
+            else {
+                temp = ((double)d.get(i) / (double)c.get(i)) * 100;
+                
+            }
+
+            arr[i] = temp;
+        }
+
+        return arr;
+    }
+
+
+    /**
+     * Getting the name of the state
+     * 
+     * @return the name of the state
+     */
+
+    public String getName() {
+        return nameState;
+    }
+
+
+    /**
+     * Returning the number of cases for a state
+     * 
+     * @return the number of cases
+     */
+
+    public DLList<Integer> getCases() {
+        return cases;
+    }
+    
+    /**
+     * Returning the races list
+     * 
+     * @return races list
+     */
+
+    public DLList<Races> getRaceList() {
+        return race;
+    }
+
+
+    /**
+     * Returning the number of deaths of a state
+     * 
+     * @return the number of deaths
+     */
+
+    public DLList<Integer> getDeaths() {
+        return deaths;
+    }
+
+
+    /**
+     * Returning the races of a state
+     * 
+     * @return the races of a state
+     */
+
+    public String[] getRaces() {
+        return races;
+    }
+
+
+    /**
+     * Returning the cfr of a state
+     * 
+     * @return the cfr of a state
+     */
+    public double[] getCFR() {
+        return cfr;
+    }
+
+
+    /**
+     * Sorting the races in alphabetical order
+     * 
+     */
+    public DLList<Races> sortByAlpha() {
+        DLList<Races> arrAlpha = new DLList<Races>();
+
+        for (int x = 0; x < this.race.size(); x++) {
+            arrAlpha.add(this.race.get(x));
+        }
+
+        for (int i = 1; i < this.race.size(); i++) {
+            for (int j = i; (j > 0) && (arrAlpha.get(j).compareAlpha(arrAlpha
+                .get(j - 1)) < 0); j--) {
+
+                Races temp = arrAlpha.get(j);
+                arrAlpha.add(j - 1, temp);
+                arrAlpha.remove(j + 1);
+
+            }
+        }
+
+        return arrAlpha;
+    }
+
+
+    /**
+     * Outputting the races in descending order
+     * 
+     */
+    public DLList<Races> sortByCFR() {
+        DLList<Races> arrCFR = new DLList<Races>();
+
+        for (int x = 0; x < this.race.size(); x++) {
+            arrCFR.add(this.race.get(x));
+        }
+
+        for (int i = 1; i < this.race.size(); i++) {
+            for (int j = i; (j > 0) && (arrCFR.get(j).compareCFR(arrCFR.get(j
+                - 1)) > 0); j--) {
+
+                Races temp = arrCFR.get(j);
+                arrCFR.add(j - 1, temp);
+                arrCFR.remove(j + 1);
+
+            }
+        }
+
+        return arrCFR;
+    }
+
+
+    /**
+     * toString method
+     * 
+     * @return the given words
+     */
+    @Override
+    public String toString() {
+        StringBuilder b = new StringBuilder();
+        b.append(nameState);
+        b.append("\n");
+
+        for (int i = 0; i < sortByAlpha().size(); i++) {
+            b.append(sortByAlpha().get(i).toString());
+            b.append("\n");
+        }
+
+        b.append("=====");
+        b.append("\n");
+
+        for (int i = 0; i < sortByCFR().size(); i++) {
+            b.append(sortByCFR().get(i).toString());
+            b.append("\n");
+        }
+
+        b.append("=====");
+
+        return b.toString();
+    }
+
+}
