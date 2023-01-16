@@ -1,0 +1,319 @@
+package prj5;
+
+import student.TestCase;
+
+/**
+ * @author Tyler Lefave, Dylan Nguyen, Joel Gujjarlamudi
+ * @version 12/3/2021
+ */
+public class StateTest extends TestCase {
+
+    private State state;
+    
+    /**
+    * SetUp method
+    */
+    public void setUp() {
+        
+        DLList<Integer> c = new DLList<Integer>();
+        DLList<Integer> d = new DLList<Integer>();
+        String[] r = new String[5];
+        
+        r[0] = "black";
+        r[1] = "white";
+        r[2] = "asian";
+        r[3] = "other";
+        r[4] = "latinx";
+        
+        d.add(99);
+        d.add(2);
+        d.add(50);
+        d.add(45);
+        d.add(10);
+        
+        c.add(100);
+        c.add(100);
+        c.add(100);
+        c.add(100);
+        c.add(100);
+        
+        state = new State("DC", c, d, r);
+    }
+    
+    /**
+     * Tests getCFR() 1
+     */
+    public void testGetCFR1() {
+        double[] cfr = new double[5];    
+        
+        cfr[0] = 99.0;
+        cfr[1] = 2.0;
+        cfr[2] = 50.0;
+        cfr[3] = 45.0;
+        cfr[4] = 10.0;
+        
+        double[] temp = state.getCFR();
+        
+        for (int i = 0; i < temp.length; i++) {
+            assertEquals(cfr[i], temp[i], .1);
+        }
+        
+    }
+    
+    /**
+     * Tests getCFR() 2
+     */
+    public void testGetCFR2() {
+        
+        DLList<Integer> c = new DLList<Integer>();
+        DLList<Integer> d = new DLList<Integer>();
+        String[] r = new String[5];
+        
+        r[0] = "black";
+        r[1] = "white";
+        r[2] = "asian";
+        r[3] = "other";
+        r[4] = "latinx";
+        
+        d.add(99);
+        d.add(2);
+        d.add(50);
+        d.add(45);
+        d.add(10);
+        
+        c.add(100);
+        c.add(-1);
+        c.add(100);
+        c.add(100);
+        c.add(100);
+        
+        state = new State("DC", c, d, r);
+        
+        double[] cfr = new double[5];    
+        
+        cfr[0] = 99.0;
+        cfr[1] = -1.0;
+        cfr[2] = 50.0;
+        cfr[3] = 45.0;
+        cfr[4] = 10.0;
+        
+        double[] temp = state.getCFR();
+        
+        for (int i = 0; i < temp.length; i++) {
+            assertEquals(cfr[i], temp[i], .1);
+        }
+        
+    }
+    
+    /**
+     * Tests getCFR() 3
+     */
+    public void testGetCFR3() {
+        
+        DLList<Integer> c = new DLList<Integer>();
+        DLList<Integer> d = new DLList<Integer>();
+        String[] r = new String[5];
+        
+        r[0] = "black";
+        r[1] = "white";
+        r[2] = "asian";
+        r[3] = "other";
+        r[4] = "latinx";
+        
+        d.add(-1);
+        d.add(2);
+        d.add(50);
+        d.add(45);
+        d.add(10);
+        
+        c.add(100);
+        c.add(100);
+        c.add(100);
+        c.add(100);
+        c.add(100);
+        
+        state = new State("DC", c, d, r);
+        
+        double[] cfr = new double[5];    
+        
+        cfr[0] = -1.0;
+        cfr[1] = 2.0;
+        cfr[2] = 50.0;
+        cfr[3] = 45.0;
+        cfr[4] = 10.0;
+        
+        double[] temp = state.getCFR();
+        
+        for (int i = 0; i < temp.length; i++) {
+            assertEquals(cfr[i], temp[i], .1);
+        }
+        
+    }
+    
+    /**
+     * Tests getCFR() 4
+     */
+    public void testGetCFR4() {
+        
+        DLList<Integer> c = new DLList<Integer>();
+        DLList<Integer> d = new DLList<Integer>();
+        String[] r = new String[5];
+        
+        r[0] = "black";
+        r[1] = "white";
+        r[2] = "asian";
+        r[3] = "other";
+        r[4] = "latinx";
+        
+        d.add(-1);
+        d.add(2);
+        d.add(50);
+        d.add(45);
+        d.add(10);
+        
+        c.add(-1);
+        c.add(100);
+        c.add(100);
+        c.add(100);
+        c.add(100);
+        
+        state = new State("DC", c, d, r);
+        
+        double[] cfr = new double[5];    
+        
+        cfr[0] = -1.0;
+        cfr[1] = 2.0;
+        cfr[2] = 50.0;
+        cfr[3] = 45.0;
+        cfr[4] = 10.0;
+        
+        double[] temp = state.getCFR();
+        
+        for (int i = 0; i < temp.length; i++) {
+            assertEquals(cfr[i], temp[i], .1);
+        }
+        
+    }
+    
+    /**
+     * Tests getName() 
+     */
+    public void testGetName() {
+        assertEquals("DC", state.getName());
+    }
+    
+    /**
+     * Tests getCases() 
+     */
+    public void testGetCases() {
+        for (int i = 0; i < state.getCases().size(); i++) {
+            int num = state.getCases().get(i);
+            assertEquals(100, num);
+        }
+    }
+    
+    /**
+     * Tests getDeaths()
+     */
+    public void testGetDeaths() {
+        int[] death = new int[5];
+        
+        death[0] = 99;
+        death[1] = 2;
+        death[2] = 50;
+        death[3] = 45;
+        death[4] = 10;
+        
+        for (int i = 0; i < death.length; i++) {
+            int num = state.getDeaths().get(i);
+            assertEquals(death[i], num);
+        }
+    }
+    
+    /**
+     * Tests getRaces()
+     */
+    public void testGetRaces() {
+        String[] a = new String[5];
+        
+        a[0] = "black";
+        a[1] = "white";
+        a[2] = "asian";
+        a[3] = "other";
+        a[4] = "latinx";
+        
+        for (int i = 0; i < a.length; i++) {
+            String str = state.getRaces()[i];
+            assertEquals(a[i], str);
+        }
+    }
+    
+    /**
+     * Tests getRaceList()
+     */
+    public void testGetRaceList() {
+        assertNotNull(state.getRaceList());
+    }
+    
+    /**
+     * Tests sortByAlpha()
+     */
+    public void testSortByAlpha() {
+        for (int i = 0; i < state.sortByAlpha().size(); i++) {
+            assertNotNull(state.sortByAlpha().get(i).toString());
+        }
+    }
+    
+    /**
+     * Tests sortByCFR()
+     */
+    public void testSortByCFR() {
+        for (int i = 0; i < state.sortByCFR().size(); i++) {
+            assertNotNull(state.sortByCFR().get(i).toString());
+        }
+    }
+    
+    /**
+     * Tests sortByCFR() 2
+     */
+    public void testSortByCFR2() {
+        
+        DLList<Integer> c = new DLList<Integer>();
+        DLList<Integer> d = new DLList<Integer>();
+        String[] r = new String[5];
+        
+        r[0] = "black";
+        r[1] = "white";
+        r[2] = "asian";
+        r[3] = "other";
+        r[4] = "latinx";
+        
+        d.add(0);
+        d.add(0);
+        d.add(0);
+        d.add(0);
+        d.add(0);
+        
+        c.add(100);
+        c.add(100);
+        c.add(100);
+        c.add(100);
+        c.add(100);
+        
+        state = new State("DC", c, d, r);
+        
+        for (int i = 0; i < state.sortByCFR().size(); i++) {
+            assertNotNull(state.sortByCFR().get(i).toString());
+        }
+    }
+    
+    /**
+     * Tests toString()
+     */
+    public void testToString() {
+        assertNotNull(state.toString());
+        assertNotNull(state.toString());
+        assertNotNull(state.toString());
+    }
+
+}
