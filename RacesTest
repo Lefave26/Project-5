@@ -1,0 +1,116 @@
+package prj5;
+
+import student.TestCase;
+
+/**
+ * @author Tyler Lefave, Dylan Nguyen, Joel Gujjarlamudi
+ * @version 12/3/2021
+ */
+public class RacesTest extends TestCase {
+
+    private Races r1;
+    private Races r2;
+
+    /**
+     * SetUp method
+     */
+    public void setUp() {
+        r1 = new Races("asian", 200, 10.0);
+        r2 = new Races("black", 300, 9.7);
+
+    }
+
+
+    /**
+     * Tests compareAlpha() 1
+     */
+    public void testCompareAlpha1() {
+        assertTrue(r1.compareAlpha(r2) < 0);
+    }
+
+
+    /**
+     * Tests compareAlpha() 2
+     */
+    public void testCompareAlpha2() {
+        assertTrue(r2.compareAlpha(r1) > 0);
+    }
+
+
+    /**
+     * Tests compareAlpha() 3
+     */
+    public void testCompareAlpha3() {
+        assertTrue(r2.compareAlpha(r2) == 0);
+    }
+
+
+    /**
+     * Tests compareCFR() 1
+     */
+    public void testCompareCFR1() {
+        assertTrue(r1.compareCFR(r2) > 0);
+    }
+
+
+    /**
+     * Tests compareCFR() 2
+     */
+    public void testCompareCFR2() {
+        assertTrue(r2.compareCFR(r1) < 0);
+    }
+
+
+    /**
+     * Tests compareCFR() 3
+     */
+    public void testCompareCFR3() {
+        assertTrue(r2.compareCFR(r2) == 0);
+    }
+
+
+    /**
+     * Tests compareCFR() 4
+     */
+    public void testCompareCFR4() {
+        r2 = new Races("black", 200, 10.0);
+
+        assertTrue(r1.compareCFR(r2) > 0);
+    }
+
+
+    /**
+     * Tests toString()
+     */
+    public void testToString() {
+        String str1 = "asian: 200 cases, 10% CFR";
+        String str2 = "black: 300 cases, 9.7% CFR";
+
+        // System.out.println(r1.toString());
+        // System.out.println(r2.toString());
+
+        assertEquals(str1, r1.toString());
+        assertEquals(str2, r2.toString());
+    }
+
+
+    /**
+     * Testing getCFR method
+     */
+
+    public void testGetCFR() {
+        assertEquals(10.0, r1.getCFR(), .1);
+        assertEquals(9.7, r2.getCFR(), .1);
+    }
+
+
+    /**
+     * Testing getName method
+     */
+
+    public void testGetName() {
+        assertEquals("asian", r1.getName());
+        assertEquals("black", r2.getName());
+    }
+
+}
