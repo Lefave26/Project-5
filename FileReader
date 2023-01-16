@@ -1,0 +1,192 @@
+package prj5;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.util.Scanner;
+
+/**
+ * @author Tyler Lefave, Dylan Nguyen, Joel Gujjarlamudi
+ * @version 11/11/2021
+ * 
+ */
+public class FileReader {
+
+    private String[] state;
+    private DLList<Integer> cases;
+    private DLList<Integer> deaths;
+    private String[] races;
+    private Calculator calc;
+
+    /**
+     * Constructor
+     * 
+     * @param file file being read
+     *            
+     * @throws Exception 
+     */
+
+    public FileReader(String file) throws Exception {
+
+        state = getStates();
+        races = getRaces();
+        cases = getCases(file);
+        deaths = getDeaths(file);
+
+        calc = new Calculator(races, state, cases, deaths);
+        
+        CovidWindow window = new CovidWindow(calc);
+        
+        /*
+         * for (int i = 0; i < calc.getState().size(); i++) {
+         * System.out.println(calc.getState().get(i).toString());
+         * }
+         */
+    }
+
+
+    /**
+     * getting calc
+     * 
+     * @return calc the calculator
+     */
+
+    public Calculator getCalc() {
+        return calc;
+    }
+
+
+    /**
+     * Getting the states as strings
+     * 
+     * @return the states
+     */
+
+    private String[] getStates() {
+        String[] temp = new String[6];
+
+        temp[0] = "DC";
+        temp[1] = "GA";
+        temp[2] = "MD";
+        temp[3] = "NC";
+        temp[4] = "TN";
+        temp[5] = "VA";
+
+        return temp;
+
+    }
+
+
+    /**
+     * Getting the races as strings
+     * 
+     * @return races the races
+     */
+
+    private String[] getRaces() {
+        String[] temp = new String[5];
+
+        temp[0] = "white";
+        temp[1] = "black";
+        temp[2] = "latinx";
+        temp[3] = "asian";
+        temp[4] = "other";
+
+        return temp;
+
+    }
+
+
+    /**
+     * private method to get cases from file
+     * 
+     * @param file
+     *            file being read
+     * @return cases in the file
+     * @throws FileNotFoundException
+     */
+
+    private DLList<Integer> getCases(String file) throws FileNotFoundException {
+
+        Scanner scan = new Scanner(new File(file));
+
+        DLList<Integer> temp = new DLList<Integer>();
+
+        String[] word = scan.nextLine().split(", *");
+
+        while (scan.hasNextLine()) {
+
+            word = scan.nextLine().split(", *");
+
+            if (word.length == 0) {
+                continue;
+            }
+
+            temp.add(checkNA(word[1]));
+            temp.add(checkNA(word[2]));
+            temp.add(checkNA(word[3]));
+            temp.add(checkNA(word[4]));
+            temp.add(checkNA(word[5]));
+        }
+
+        return temp;
+
+    }
+
+
+    /**
+     * Getting deaths from the file
+     * 
+     * @param file
+     *            file being read
+     * @return the deaths from the file
+     * @throws FileNotFoundException
+     */
+
+    private DLList<Integer> getDeaths(String file)
+        throws FileNotFoundException {
+
+        Scanner scan = new Scanner(new File(file));
+
+        DLList<Integer> temp = new DLList<Integer>();
+
+        String[] word = scan.nextLine().split(", *");
+
+        while (scan.hasNextLine()) {
+
+            word = scan.nextLine().split(", *");
+
+            if (word.length == 0) {
+                continue;
+            }
+
+            temp.add(checkNA(word[6]));
+            temp.add(checkNA(word[7]));
+            temp.add(checkNA(word[8]));
+            temp.add(checkNA(word[9]));
+            temp.add(checkNA(word[10]));
+        }
+
+        return temp;
+
+    }
+
+
+    /**
+     * Checking if NA is found
+     * 
+     * @param str
+     *            string
+     * @return a value for each situation
+     */
+
+    private int checkNA(String str) {
+        if (str.equals("NA")) {
+            return -1;
+        }
+        else {
+            return Integer.valueOf(str);
+        }
+    }
+
+}
