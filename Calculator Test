@@ -1,0 +1,98 @@
+/**
+ * 
+ */
+package prj5;
+
+/**
+ * Test class for calculator
+ * 
+ * @author Tyler Lefave, Dylan Nguyen, Joel Gujjarlamudi
+ * @version 12/3/2021
+ */
+public class CalculatorTest extends student.TestCase {
+
+    private Calculator calc;
+    private String[] r;
+    private String[] states;
+    private DLList<Integer> cases;
+    private DLList<Integer> deaths;
+
+    /**
+     * Setting up for the test cases
+     */
+    public void setUp() {
+        //Nothing needed
+    }
+    
+    /**
+     * Tests constructor 1
+     */
+    public void testCalc1() {
+        
+        r = new String[2];
+        
+        r[0] = "white";
+        r[1] = "black";
+        
+        states = new String[2];
+        
+        states[0] = "DC";
+        states[1] = "VA";
+        
+        cases = new DLList<Integer>();
+        deaths = new DLList<Integer>();
+        
+        cases.add(10);
+        cases.add(10);
+        
+        deaths.add(3);
+        deaths.add(6);
+        
+        cases.add(5);
+        cases.add(9);
+        
+        deaths.add(3);
+        deaths.add(1);
+        
+        try {
+            calc = new Calculator(r, states, cases, deaths);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        assertEquals(2, calc.getState().size());
+    }
+    
+    /**
+     * Tests constructor 2
+     */
+    public void testCalc2() {
+        
+        r = new String[2];
+        
+        r[0] = "white";
+        r[1] = "black";
+        
+        states = new String[1];
+        
+        states[0] = "DC";
+        
+        cases = new DLList<Integer>();
+        deaths = new DLList<Integer>();
+        
+        cases.add(10);
+        cases.add(10);
+        
+        deaths.add(6);
+        
+        try {
+            calc = new Calculator(r, states, cases, deaths);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+        }
+        
+    }
+
+}
