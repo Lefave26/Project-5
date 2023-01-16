@@ -1,0 +1,77 @@
+/**
+ * 
+ */
+package prj5;
+
+import java.util.Iterator;
+
+/**
+ * @author Tyler Lefave, Dylan Nguyen, Joel Gujjarlamudi
+ * @version 12/3/2021
+ */
+public class Calculator {
+
+    private DLList<State> state;
+
+    /**
+     * Constructor
+     * 
+     * @param races
+     *            races in string format
+     * @param states
+     *            states in string format
+     * @param cases
+     *            number of cases for each race and state
+     * @param deaths
+     *            number of deaths for each race and state
+     * @throws Exception 
+     */
+    public Calculator(
+        String[] races,
+        String[] states,
+        DLList<Integer> cases,
+        DLList<Integer> deaths) throws Exception {
+        
+        state = new DLList<State>();
+        
+        int cSize = cases.size();
+        int dSize = deaths.size();
+        
+        Iterator<Integer> cIter = cases.iterator();
+        Iterator<Integer> dIter = deaths.iterator();
+        
+        
+        if (cSize == dSize) {
+            
+            cIter.next();
+            dIter.next();
+            
+            for (int i = 0; i < states.length; i++) {
+                DLList<Integer> c = new DLList<Integer>();
+                DLList<Integer> d = new DLList<Integer>();
+                
+                for (int j = 0; j < races.length; j++) {              
+                    
+                    c.add(cIter.next());
+                    d.add(dIter.next());
+                    
+                }
+                
+                state.add(new State(states[i], c, d, races));
+                
+            }
+        }
+        else {
+            throw new Exception();
+        }
+    }
+    
+    /**
+     * Gets the state DLList
+     * 
+     * @return state the state
+     */
+    public DLList<State> getState() {
+        return state;
+    }
+}
