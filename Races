@@ -1,0 +1,98 @@
+package prj5;
+
+import java.text.DecimalFormat;
+
+/**
+ * @author Tyler Lefave, Dylan Nguyen, Joel Gujjarlamudi
+ * @version 12/3/2021
+ */
+public class Races {
+
+    private String name;
+    private int cases;
+    private double cfr;
+
+    /**
+     * Constructor
+     * 
+     * @param race
+     *            races in string format
+     * @param cases
+     *            number of cases
+     * @param cfr
+     *            cfr percentage
+     */
+    public Races(String race, int cases, double cfr) {
+        name = race;
+        this.cases = cases;
+        this.cfr = cfr;
+    }
+
+
+    /**
+     * Comparing the races alphabetically
+     * 
+     * @param o
+     *            other race
+     * @return the difference between the two races alphabetically
+     */
+
+    public int compareAlpha(Races o) {
+
+        return this.name.compareTo(o.name);
+    }
+
+
+    /**
+     * Comparing the cfr of races
+     * 
+     * @param o
+     *            other race
+     * @return the difference between two cfr
+     */
+
+    public int compareCFR(Races o) {
+        int num = Double.compare(this.cfr, o.cfr);
+        
+        if (num == 0) {
+            return this.name.compareTo(o.name) * -1;
+        }
+        else {
+            return num;
+        }
+    }
+
+
+    /**
+     * toString method
+     * 
+     * @return the given words
+     *
+     */
+    public String toString() {
+        StringBuilder b = new StringBuilder();
+
+        b.append(name);
+        b.append(": ");
+        b.append(cases);
+        b.append(" cases, ");
+        
+        String pattern = "#.#";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+
+        String format = decimalFormat.format(cfr);
+        
+        b.append(format);
+        b.append("% CFR");
+
+        return b.toString();
+    }
+    
+    public double getCFR() {
+        return cfr;
+    }
+    
+    public String getName() {
+        return name;
+    }
+}
