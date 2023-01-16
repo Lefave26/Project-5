@@ -1,0 +1,32 @@
+package prj5;
+
+import java.io.FileNotFoundException;
+
+/**
+ * @author Tyler Lefave, Dylan Nguyen, Joel Gujjarlamudi
+ * @version 12/3/2021
+ */
+public class Input {
+
+    public Input() {
+        // Nothing
+    }
+
+
+    /**
+     * Like the project runner
+     * 
+     * @param args
+     *            string
+     * @throws FileNotFoundException
+     */
+
+    public static void main(String[] args) throws FileNotFoundException {
+        if (args.length == 1) {
+            new FileReader(args[0]);
+        }
+        else {
+            new FileReader("Cases_and_Deaths_by_race_CRDT_Sep2020.csv");
+        }
+    }
+}
